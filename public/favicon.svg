@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <!-- 左上: ピンク -->
+  <path d="M256,256 L256,36 A220,220 0 0,0 36,256 Z" fill="#F2C4C4" stroke="none"/>
+  <!-- 右上: 水色 -->
+  <path d="M256,256 L476,256 A220,220 0 0,0 256,36 Z" fill="#C4D9F2" stroke="none"/>
+  <!-- 左下: 黄緑 -->
+  <path d="M256,256 L36,256 A220,220 0 0,0 256,476 Z" fill="#C4E8D1" stroke="none"/>
+  <!-- 右下: クリーム -->
+  <path d="M256,256 L256,476 A220,220 0 0,0 476,256 Z" fill="#F2EEC4" stroke="none"/>
+  <!-- 外枠の円 -->
+  <circle cx="256" cy="256" r="220" fill="none" stroke="#1a1a1a" stroke-width="6"/>
+  <!-- 縦線 -->
+  <line x1="256" y1="36" x2="256" y2="476" stroke="#1a1a1a" stroke-width="3"/>
+  <!-- 横線 -->
+  <line x1="36" y1="256" x2="476" y2="256" stroke="#1a1a1a" stroke-width="3"/>
+</svg>
