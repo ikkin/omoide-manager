@@ -16,7 +16,7 @@ trait ItemFormProperties
     public ?TemporaryUploadedFile $image = null;
 
     #[Validate('required', message:'名称は必須です')]
-    #[Validate('max:50', message:'50文字以内で入力してください')]
+    #[Validate('max:30', message:'30文字以内で入力してください')]
     public string $item_name ="";
 
     #[Validate('required', message:'カテゴリは必須です')]
@@ -24,7 +24,7 @@ trait ItemFormProperties
     public ?int $category_id = null;
 
     #[Validate('nullable')]
-    #[Validate('max:50', message:'50文字以内で入力してください')]
+    #[Validate('max:30', message:'30文字以内で入力してください')]
     public ?string $model_no = null;
 
     #[Validate('required', message:'状態は必須です')]
@@ -39,7 +39,7 @@ trait ItemFormProperties
     public int $condition = ItemConstants::CONDITION_GOOD;
 
     #[Validate('nullable')]
-    #[Validate('max:50', message:'50文字以内で入力してください')]
+    #[Validate('max:30', message:'30文字以内で入力してください')]
     public ?string $condition_detail = null;
 
     #[Validate('required', message:'処分方針は必須です')]
@@ -66,7 +66,7 @@ trait ItemFormProperties
     public ?int $sale_price = null;
 
     #[Validate('nullable')]
-    #[Validate('max:50', message:'50文字以内で入力してください')]
+    #[Validate('max:20', message:'20文字以内で入力してください')]
     public ?string $transfer_target = null;
 
     #[Validate('nullable')]
@@ -87,6 +87,6 @@ trait ItemFormProperties
     public ?array $ai_text = null;
 
     #[Validate('nullable')]
-    #[Validate('max:200', message:'200文字以内で入力してください')]
+    #[Validate('max:120', message:'120文字以内で入力してください')]
     public ?string $remark = null;
 }

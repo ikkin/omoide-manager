@@ -115,7 +115,7 @@
                     >
                         <span class="font-bold whitespace-nowrap">廃棄</span>
                         <span class="text-sm whitespace-nowrap">廃棄費用</span>
-                        <input type="text" wire:model="discard_cost"
+                        <input type="number" wire:model="discard_cost"
                             @if($disposal_plan != ItemConstants::DISPOSAL_PLAN_DISCARD) disabled @endif
                             class="border border-gray-300 rounded my-2 px-2 py-1 flex-1 min-w-0 text-end
                                 @if($disposal_plan != ItemConstants::DISPOSAL_PLAN_DISCARD)
@@ -135,7 +135,7 @@
                     >
                         <span class="font-bold whitespace-nowrap">売却</span>
                         <span class="text-sm whitespace-nowrap">売却価格</span>
-                        <input type="text" wire:model="sale_price"
+                        <input type="number" wire:model="sale_price"
                             @if($disposal_plan != ItemConstants::DISPOSAL_PLAN_SALE) disabled @endif
                             class="border border-gray-300 rounded my-2 px-2 py-1 flex-1 min-w-0 text-end
                                 @if($disposal_plan != ItemConstants::DISPOSAL_PLAN_SALE)
@@ -195,16 +195,12 @@
                         未指定
                     </span>
                 </p>
-
-                @if($errors->hasAny(['disposal_plan', 'discard_cost', 'sale_price', 'transfer_target', 'storage_deadline']))
-                    <p class="text-red-500 text-sm">
-                        {{ $errors->first('disposal_plan') 
-                            ?? $errors->first('discard_cost') 
-                            ?? $errors->first('sale_price')
-                            ?? $errors->first('transfer_target')
-                            ?? $errors->first('storage_deadline') }}
-                    </p>
-                @endif
+                
+                <x-error-message field="disposal_plan" />
+                <x-error-message field="discard_cost" />
+                <x-error-message field="sale_price" />
+                <x-error-message field="transfer_target" />
+                <x-error-message field="storage_deadline" />
             </div>
         </div>
 
@@ -245,7 +241,7 @@
                 <p class="text-sm font-bold bg-[#E2EBB7] px-2 py-1">
                     備考
                 </p>
-                <textarea wire:model="remark" class="border border-gray-300 rounded px-2 py-1 h-24"></textarea>
+                <textarea wire:model="remark" class="border border-gray-300 rounded px-2 py-1 h-32"></textarea>
                 <x-error-message field="remark" />
             </div>
 
@@ -258,6 +254,7 @@
             type="submit"
             icon="plus-circle" 
             wire:click="register" 
+            wire:confirm="登録してよろしいですか？" 
             class="px-6 py-2 !bg-[#C4C598] rounded cursor-pointer"
         >
             登録

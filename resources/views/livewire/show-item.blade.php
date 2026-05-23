@@ -97,7 +97,7 @@
                     >
                         <span class="font-bold whitespace-nowrap my-1 py-2">譲渡</span>
                         <span class="text-sm whitespace-nowrap">譲渡先</span>
-                        <span class="my-2 px-2 py-1 flex-1 min-w-0 text-end">{{ $item->transfer_target }}</span>
+                        <span class="my-2 px-2 py-1 flex-1 min-w-0 text-start">{{ $item->transfer_target }}</span>
                     </span>
                 </p>
 
@@ -155,7 +155,7 @@
                 <p class="text-sm font-bold bg-[#E2EBB7] px-2 py-1">
                     備考
                 </p>
-                <textarea class="border border-gray-300 rounded p-1 h-24" readonly>{{ $item->remark }}</textarea>
+                <textarea class="border border-gray-300 rounded p-1 h-32" readonly>{{ $item->remark }}</textarea>
             </div>
 
         </div>
