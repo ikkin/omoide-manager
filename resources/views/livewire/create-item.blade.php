@@ -249,25 +249,31 @@
     </div>
 
     {{-- 登録・戻るボタン --}}
-    <div class="flex justify-end gap-4 mt-8">
-        <flux:button 
-            type="submit"
-            icon="plus-circle" 
-            wire:click="register" 
-            wire:confirm="登録してよろしいですか？" 
-            class="px-6 py-2 !bg-[#C4C598] rounded cursor-pointer"
-        >
-            登録
-        </flux:button>
-        <flux:button
-            type="button"
-            icon="arrow-uturn-left"
-            wire:navigate
-            href="{{ route('search-items') }}?autoSearch=true"
-            class="px-6 py-2 !bg-[#C4C598] rounded"
-        >
-            戻る
-        </flux:button>
+    <div class="flex flex-col mt-2">
+        @error('item_limit')
+            <p class="text-red-500 text-sm text-end">{{ $message }}</p>
+        @enderror
+        <div class="flex justify-end gap-4 mt-2">
+            <flux:button 
+                type="submit"
+                icon="plus-circle" 
+                wire:click="register" 
+                wire:confirm="登録してよろしいですか？" 
+                class="px-6 py-2 !bg-[#C4C598] rounded cursor-pointer"
+            >
+                登録
+            </flux:button>
+            <flux:button
+                type="button"
+                icon="arrow-uturn-left"
+                wire:navigate
+                href="{{ route('search-items') }}?autoSearch=true"
+                class="px-6 py-2 !bg-[#C4C598] rounded"
+            >
+                戻る
+            </flux:button>
+        </div>
     </div>
+    
 
 </main>

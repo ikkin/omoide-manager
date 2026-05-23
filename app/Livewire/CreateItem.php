@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use App\Constants\ItemConstants;
 use App\Livewire\Concerns\HandlesDisposalPlan;
 use App\Livewire\Concerns\ItemFormProperties;
 use App\Models\Category;
@@ -36,6 +37,14 @@ class CreateItem extends Component
     public function register()
     {
         $this->validate();
+
+        //家財件数チェック
+        $itemCount = Item::where('user_id', Auth::id())->count();
+        if ($itemCount >= ItemConstants::LIMIT_ITEM_COUNT) {
+            //エラーメッセージをセッションに追加
+            $this->addError('item_limit', '家財の最大登録件数に達しているため登録できません');
+            return;
+        }
 
         // 画像が選択されている場合は保存
         if ($this->image) {

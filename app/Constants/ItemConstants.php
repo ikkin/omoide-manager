@@ -12,6 +12,8 @@ class ItemConstants
         //
     }
 
+    const LIMIT_ITEM_COUNT = 50; //1ユーザーあたりの家財登録件数上限値
+
     //状態
     const CONDITION_GOOD    = 1; //良好
     const CONDITION_NORMAL  = 2; //使用感あり

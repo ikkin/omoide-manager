@@ -61,6 +61,12 @@ class EditItem extends Component
 
     public function update()
     {
+        $updateItem = Item::findOrFail($this->item->id);
+
+        if ($updateItem->user_id !== Auth::id()) {
+            abort(403);
+        }
+
         $this->validate();   
 
         //画像が新しく選択された場合は保存
