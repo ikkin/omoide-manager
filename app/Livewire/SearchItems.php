@@ -5,6 +5,7 @@ namespace App\Livewire;
 use App\Models\Category;
 use App\Models\Item;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
 class SearchItems extends Component
@@ -37,7 +38,7 @@ class SearchItems extends Component
     //検索ボタン
     public function search()
     {
-        $query = Item::with(['user','category']);
+        $query = Auth::user()->items()->with('category');
         
         //名称
         if(!empty($this->item_name)){

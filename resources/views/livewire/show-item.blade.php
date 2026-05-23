@@ -1,3 +1,7 @@
+@php
+    use App\Constants\ItemConstants;
+@endphp
+
 <main class="p-4">
     <flux:heading size="lg" class="mb-2">家財照会</flux:heading>
 
@@ -38,7 +42,7 @@
 
             <div class="flex flex-col gap-1">
                 <p class="text-sm font-bold bg-[#E2EBB7] px-2 py-1">状態</p>
-                <p>{{ \App\Constants\ItemConstants::CONDITIONS[$item->condition] }}</p>
+                <p>{{ ItemConstants::CONDITIONS[$item->condition] }}</p>
             </div>
 
             <div class="flex flex-col gap-1">
@@ -54,10 +58,10 @@
                     <input 
                         type="radio"
                         class="scale-125 ml-2"
-                        @if($item->disposal_plan == 1) checked @endif
+                        @if($item->disposal_plan == ItemConstants::DISPOSAL_PLAN_DISCARD) checked @endif
                     >
                     <span class="flex items-center rounded gap-2 flex-1 min-w-0 px-2"
-                            style="background-color: {{ \App\Constants\ItemConstants::DISPOSAL_COLOR_CODES[1] }}"
+                            style="background-color: {{ ItemConstants::DISPOSAL_COLOR_CODES[ItemConstants::DISPOSAL_PLAN_DISCARD] }}"
                     >
                         <span class="font-bold whitespace-nowrap my-1 py-2">廃棄</span>
                         <span class="text-sm whitespace-nowrap">廃棄費用</span>
@@ -70,10 +74,10 @@
                     <input
                         type="radio"
                         class="scale-125 ml-2"
-                        @if($item->disposal_plan == 2) checked @endif
+                        @if($item->disposal_plan == ItemConstants::DISPOSAL_PLAN_SALE) checked @endif
                     >
                     <span class="flex items-center rounded gap-2 flex-1 min-w-0 px-2"
-                            style="background-color: {{ \App\Constants\ItemConstants::DISPOSAL_COLOR_CODES[2] }}"
+                            style="background-color: {{ ItemConstants::DISPOSAL_COLOR_CODES[ItemConstants::DISPOSAL_PLAN_SALE] }}"
                     >
                         <span class="font-bold whitespace-nowrap my-1 py-2">売却</span>
                         <span class="text-sm whitespace-nowrap">売却価格</span>
@@ -86,10 +90,10 @@
                     <input
                         type="radio"
                         class="scale-125 ml-2"
-                        @if($item->disposal_plan == 3) checked @endif
+                        @if($item->disposal_plan == ItemConstants::DISPOSAL_PLAN_TRANSFER) checked @endif
                     >
                     <span class="flex items-center rounded gap-2 flex-1 min-w-0 px-2"
-                            style="background-color: {{ \App\Constants\ItemConstants::DISPOSAL_COLOR_CODES[3] }}"
+                            style="background-color: {{ ItemConstants::DISPOSAL_COLOR_CODES[ItemConstants::DISPOSAL_PLAN_TRANSFER] }}"
                     >
                         <span class="font-bold whitespace-nowrap my-1 py-2">譲渡</span>
                         <span class="text-sm whitespace-nowrap">譲渡先</span>
@@ -101,10 +105,10 @@
                     <input
                         type="radio"
                         class="scale-125 ml-2"
-                        @if($item->disposal_plan == 4) checked @endif
+                        @if($item->disposal_plan == ItemConstants::DISPOSAL_PLAN_STORAGE) checked @endif
                     >
                     <span class="flex items-center rounded gap-2 flex-1 min-w-0 px-2"
-                            style="background-color: {{ \App\Constants\ItemConstants::DISPOSAL_COLOR_CODES[4] }}"
+                            style="background-color: {{ ItemConstants::DISPOSAL_COLOR_CODES[ItemConstants::DISPOSAL_PLAN_STORAGE] }}"
                     >
                         <span class="font-bold whitespace-nowrap my-1 py-2">保管</span>
                         <span class="text-sm whitespace-nowrap">保管期限</span>
@@ -117,10 +121,10 @@
                     <input 
                         type="radio"
                         class="scale-125 ml-2"
-                        @if($item->disposal_plan == 5) checked @endif
+                        @if($item->disposal_plan == ItemConstants::DISPOSAL_PLAN_NONE) checked @endif
                     >
                     <span class="font-bold rounded flex-1 my-1 px-2 py-2"
-                            style="background-color: {{ \App\Constants\ItemConstants::DISPOSAL_COLOR_CODES[5] }}"
+                            style="background-color: {{ ItemConstants::DISPOSAL_COLOR_CODES[ItemConstants::DISPOSAL_PLAN_NONE] }}"
                     >
                         未指定
                     </span>
@@ -134,7 +138,7 @@
 
             <div class="flex flex-col gap-1">
                 <p class="text-sm font-bold bg-[#E2EBB7] px-2 py-1">処分ステータス</p>
-                <p>{{ \App\Constants\ItemConstants::DISPOSAL_STATUSES[$item->disposal_status] }}</p>
+                <p>{{ ItemConstants::DISPOSAL_STATUSES[$item->disposal_status] }}</p>
             </div>
 
             <div class="flex flex-col gap-1">
@@ -174,7 +178,7 @@
             icon="trash" 
             wire:click="delete({{ $item->id }})" 
             wire:confirm="本当に削除しますか? "
-            class="px-6 py-2 !bg-[#C4C598] rounded"
+            class="px-6 py-2 !bg-[#C4C598] rounded cursor-pointer"
         >
             削除
         </flux:button>

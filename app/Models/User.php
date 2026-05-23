@@ -62,7 +62,8 @@ class User extends Authenticatable
             ->implode('');
     }
 
-    public function items() {
+    public function items()
+    {
         return $this->hasMany(Item::class);
     }
 }

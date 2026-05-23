@@ -1,3 +1,7 @@
+@php
+    use App\Constants\ItemConstants;
+@endphp
+
 <div class="md:flex min-h-screen p-0" x-data="{open : false}">
 
     {{-- スマホ用 --}}
@@ -37,7 +41,7 @@
                             icon="magnifying-glass"
                             wire:click="search"
                             size="sm"
-                            class="!bg-[#C4C598] w-full"
+                            class="!bg-[#C4C598] w-full cursor-pointer"
                         >
                             検索
                         </flux:button>
@@ -56,7 +60,7 @@
                         <p class="text-sm font-bold px-2 py-1">カテゴリ</p>
                         <select wire:model="category_id" class="border border-gray-300 rounded mx-5 pl-1 bg-white">
                             <option value="">選択してください</option>
-                             @foreach($categories as $category)
+                            @foreach($categories as $category)
                                 <option value="{{ $category->id }}">
                                     {{ $category->category_name }}
                                 </option>
@@ -66,7 +70,7 @@
 
                     <div class="flex flex-col gap-1">
                         <p class="text-sm font-bold px-2 py-1">状態</p>
-                        @foreach(\App\Constants\ItemConstants::CONDITIONS as $value => $label)
+                        @foreach(ItemConstants::CONDITIONS as $value => $label)
                             <p class="flex items-center gap-2">
                                 <input type="checkbox" wire:model="conditions" value="{{ $value }}" class="ml-5 scale-125">
                                 <span class="text-sm">{{ $label }}</span>
@@ -76,7 +80,7 @@
                     
                     <div class="flex flex-col gap-1">
                         <label class="text-sm font-bold px-2 py-1">処分方針</label>
-                        @foreach(\App\Constants\ItemConstants::DISPOSAL_PLANS as $value => $label)
+                        @foreach(ItemConstants::DISPOSAL_PLANS as $value => $label)
                             <p class="flex items-center gap-2">
                                 <input type="checkbox" wire:model="disposal_plans" value="{{ $value }}" class="ml-5 scale-125">
                                 <span class="text-sm">{{ $label }}</span>
@@ -86,7 +90,7 @@
                     
                     <div class="flex flex-col gap-1">
                         <p class="text-sm font-bold px-2 py-1">処分ステータス</p>
-                        @foreach(\App\Constants\ItemConstants::DISPOSAL_STATUSES as $value => $label)
+                        @foreach(ItemConstants::DISPOSAL_STATUSES as $value => $label)
                             <p class="flex items-center gap-2">
                                 <input type="checkbox" wire:model="disposal_statuses" value="{{ $value }}" class="ml-5 scale-125">
                                 <span class="text-sm">{{ $label }}</span>
@@ -126,8 +130,8 @@
         <div class="grid gird-cols-1 md:grid-cols-2 gap-4">
             @foreach ( $items as $item)
                 <article 
-                    class="flex p-4 shadow-lg rounded" 
-                    style="background-color: {{ \App\Constants\ItemConstants::DISPOSAL_COLOR_CODES[$item->disposal_plan] }}"
+                    class="flex p-4 shadow-lg rounded-xl" 
+                    style="background-color: {{ ItemConstants::DISPOSAL_COLOR_CODES[$item->disposal_plan] }}"
                 >
                     <a href="/items/{{ $item->id }}" class="flex gap-4 w-full">
                         <div class="flex-shrink-0">
@@ -144,20 +148,20 @@
                             <flux:heading size="xl" level="2">{{ $item->item_name }}</flux:heading>
                             <p class="mt-1 text-base">{{ $item->category->category_name ?? '未分類' }}</p>
                             
-                            <p class="mt-2 text-base">{{ \App\Constants\ItemConstants::CONDITIONS[$item->condition] }}</p>
+                            <p class="mt-2 text-base">{{ ItemConstants::CONDITIONS[$item->condition] }}</p>
                             <p class="text-xl">
-                                {{ \App\Constants\ItemConstants::DISPOSAL_PLANS[$item->disposal_plan] }}
-                                @if( ($item->disposal_plan == 1) && (!empty($item->discard_cost)) ) 
+                                {{ ItemConstants::DISPOSAL_PLANS[$item->disposal_plan] }}
+                                @if( ($item->disposal_plan == ItemConstants::DISPOSAL_PLAN_DISCARD) && (!empty($item->discard_cost)) ) 
                                     &#40;<span class="text-[#FF0000]">{{ number_format($item->discard_cost) }} 円</span>&#41;
-                                @elseif( ($item->disposal_plan == 2) && (!empty($item->sale_price)) )
+                                @elseif( ($item->disposal_plan == ItemConstants::DISPOSAL_PLAN_SALE) && (!empty($item->sale_price)) )
                                     &#40;<span class="text-[#0000FF]">{{ number_format($item->sale_price) }} 円</span>&#41;
-                                @elseif( ($item->disposal_plan == 3) && (!empty($item->transfer_target)) )
+                                @elseif( ($item->disposal_plan == ItemConstants::DISPOSAL_PLAN_TRANSFER) && (!empty($item->transfer_target)) )
                                     &#40;{{ Str::limit($item->transfer_target, 20) }}&#41;
-                                @elseif( ($item->disposal_plan == 4) && (!empty($item->storage_deadline)) )
+                                @elseif( ($item->disposal_plan == ItemConstants::DISPOSAL_PLAN_STORAGE) && (!empty($item->storage_deadline)) )
                                     &#40;{{ $item->storage_deadline->format('Y年m月d日') }}まで&#41;
                                 @endif
                             </p>
-                            <p class="text-base">{{ \App\Constants\ItemConstants::DISPOSAL_STATUSES[$item->disposal_status] }}</p>
+                            <p class="text-base">{{ ItemConstants::DISPOSAL_STATUSES[$item->disposal_status] }}</p>
                         </div>
                     </a>
                 </article>

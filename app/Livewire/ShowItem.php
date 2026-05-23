@@ -23,7 +23,7 @@ class ShowItem extends Component
 
     public function delete($id)
     {
-        $deleteItem = Item::find($id);
+        $deleteItem = Item::findOrFail($id);
 
         if($deleteItem->user_id !== Auth::id()){
             abort(403);

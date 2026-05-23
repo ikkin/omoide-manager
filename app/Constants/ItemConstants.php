@@ -13,34 +13,48 @@ class ItemConstants
     }
 
     //状態
+    const CONDITION_GOOD    = 1; //良好
+    const CONDITION_NORMAL  = 2; //使用感あり
+    const CONDITION_BAD     = 3; //破損・故障あり
+
     const CONDITIONS = [
-        1 => '良好',
-        2 => '使用感あり',
-        3 => '破損・故障あり',
+        self::CONDITION_GOOD    => '良好',
+        self::CONDITION_NORMAL  => '使用感あり',
+        self::CONDITION_BAD     => '破損・故障あり',
     ];
 
     //処分方針
+    const DISPOSAL_PLAN_DISCARD     = 1; //廃棄
+    const DISPOSAL_PLAN_SALE        = 2; //売却
+    const DISPOSAL_PLAN_TRANSFER    = 3; //譲渡
+    const DISPOSAL_PLAN_STORAGE     = 4; //保管
+    const DISPOSAL_PLAN_NONE        = 5; //未指定
+
     const DISPOSAL_PLANS = [
-        1 => '廃棄',
-        2 => '売却',
-        3 => '譲渡',
-        4 => '保管',
-        5 => '未指定',
+        self::DISPOSAL_PLAN_DISCARD     => '廃棄',
+        self::DISPOSAL_PLAN_SALE        => '売却',
+        self::DISPOSAL_PLAN_TRANSFER    => '譲渡',
+        self::DISPOSAL_PLAN_STORAGE     => '保管',
+        self::DISPOSAL_PLAN_NONE        => '未指定',
     ];
 
     //処分ステータス
+    const DISPOSAL_STATUS_YET       = 1; //未処分
+    const DISPOSAL_STATUS_PLANNED   = 2; //処分予定
+    const DISPOSAL_STATUS_COMPLETED = 3; //処分済み
+
     const DISPOSAL_STATUSES = [
-        1 => '未処分',
-        2 => '処分予定',
-        3 => '処分済み',
+        self::DISPOSAL_STATUS_YET       => '未処分',
+        self::DISPOSAL_STATUS_PLANNED   => '処分予定',
+        self::DISPOSAL_STATUS_COMPLETED => '処分済み',
     ];
 
     //処分方針カラー
     const DISPOSAL_COLOR_CODES = [
-        1 => '#F4CCCC', //廃棄
-        2 => '#C9DAF8', //売却
-        3 => '#D9EAD3', //譲渡
-        4 => '#FFF2CC', //保管
-        5 => '#CFCFCF', //未指定
+        self::DISPOSAL_PLAN_DISCARD     => '#F4CCCC', //廃棄
+        self::DISPOSAL_PLAN_SALE        => '#C9DAF8', //売却
+        self::DISPOSAL_PLAN_TRANSFER    => '#D9EAD3', //譲渡
+        self::DISPOSAL_PLAN_STORAGE     => '#FFF2CC', //保管
+        self::DISPOSAL_PLAN_NONE        => '#CFCFCF', //未指定
     ];
 }

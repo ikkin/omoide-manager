@@ -29,6 +29,7 @@ class Item extends Model
 
     protected $casts = [
         'storage_deadline' => 'date',
+        'ai_text'          => 'array',
     ];
 
     public function user()
