@@ -246,11 +246,17 @@
                     @if($ai_text)
                         @foreach($ai_text as $suggestion)
                             <div class="border rounded p-3 flex flex-col gap-1">
-                                <p class="font-bold">{{ $suggestion['method'] }}</p>
-                                <p class="text-sm">概要：{{ $suggestion['overview'] }}</p>
-                                <p class="text-sm">費用感：{{ $suggestion['cost'] }}</p>
-                                <p class="text-sm">手間：{{ $suggestion['effort'] }}</p>
-                                <p class="text-sm">注意点：{{ $suggestion['notes'] }}</p>
+                                <p class="font-bold mb-2 w-full bg-[#E2EBB7]">{{ $suggestion['method'] }}</p>
+                                <dl>
+                                    <dt class="font-semibold">概要</dt>
+                                    <dd class="text-sm ml-2">{{ $suggestion['overview'] }}</dd>
+                                    <dt class="font-semibold">費用感</dt>
+                                    <dd class="text-sm ml-2">{{ $suggestion['cost'] }}</dd>
+                                    <dt class="font-semibold mt-1">手間</dt>
+                                    <dd class="text-sm ml-2">{{ $suggestion['effort'] }}</dd>
+                                    <dt class="font-semibold mt-1">注意点</dt>
+                                    <dd class="text-sm ml-2">{{ $suggestion['notes'] }}</dd>
+                                </dl>
                             </div>
                         @endforeach
                     @endif

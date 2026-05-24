@@ -146,7 +146,7 @@
                                     : asset('images/no-image.png')
                                  }}" 
                                 alt="{{ $item->item_name }}"
-                                class="w-[120px] h-[160px] object-contain"
+                                class="w-[120px] h-[160px] object-contain border border-gray-400"
                             >
                         </div>
                         <div class="flex flex-col gap-1">
