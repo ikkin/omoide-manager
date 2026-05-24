@@ -20,8 +20,6 @@ class EditItem extends Component
     use HandlesDisposalPlan;
 
     public Item $item;
-
-    public Collection $categories;
     
     public ?string $image_path = null;
 
@@ -33,7 +31,7 @@ class EditItem extends Component
         }
 
         $this->item = $item;
-        $this->categories = Category::all();
+        $this->initializeCategories();
 
         //プロパティにitemの値をセット
         $this->item_name        = $item->item_name;
@@ -65,6 +63,12 @@ class EditItem extends Component
 
         if ($updateItem->user_id !== Auth::id()) {
             abort(403);
+        }
+
+        //AI提案の取得中は更新不可
+        if ($this->isLoadingAi) {
+            $this->addError('ai_loading', 'AI提案の取得中は登録できません。取得完了後に登録してください。');
+            return;
         }
 
         $this->validate();   

@@ -37,7 +37,7 @@
 
             <div class="flex flex-col gap-1">
                 <x-form-label label='型番' />
-                <p class="pl-2">{{ $item->model_no }}</p>
+                <p class="pl-2">{{ $item->model_no ?? '　' }}</p>
             </div>
 
             <div class="flex flex-col gap-1">
@@ -47,7 +47,7 @@
 
             <div class="flex flex-col gap-1">
                 <x-form-label label='状態詳細' />
-                <p class="pl-2">{{ $item->condition_detail }}</p>
+                <p class="pl-2">{{ $item->condition_detail ?? '　' }}</p>
             </div>
 
             {{-- 処分方針 --}}
@@ -143,11 +143,41 @@
 
             <div class="flex flex-col gap-1">
                 <x-form-label label='AIによる廃棄の提案（参考情報）' />
-                <p class="pl-2">{{ $item->ai_text ?? '未取得' }}</p>
-                @if(!empty($item->ai_text))
-                    <a href="">表示する</a>
+                @if($item->ai_text === null)
+                    <p class="pl-2">未取得</p>
+                @else
+                    {{-- モーダルを開くリンク --}}
+                    <flux:modal.trigger name="ai-suggestion">
+                        <span class="pl-2 text-blue-500 cursor-pointer underline">表示する</span>
+                    </flux:modal.trigger>
                 @endif
             </div>
+
+            {{-- AIの提案内容モーダル --}}
+            <flux:modal name="ai-suggestion" class="md:w-[600px]">
+                <div class="space-y-4">
+                    <flux:heading size="lg">AIによる廃棄の提案</flux:heading>
+                    <p class="text-xs text-gray-500">※あくまで参考情報です。実際の廃棄方法は各自治体の規則に従ってください。</p>
+
+                    @if($item->ai_text)
+                        @foreach($item->ai_text as $suggestion)
+                            <div class="border rounded p-3 flex flex-col gap-1">
+                                <p class="font-bold">{{ $suggestion['method'] }}</p>
+                                <p class="text-sm">概要：{{ $suggestion['overview'] }}</p>
+                                <p class="text-sm">費用感：{{ $suggestion['cost'] }}</p>
+                                <p class="text-sm">手間：{{ $suggestion['effort'] }}</p>
+                                <p class="text-sm">注意点：{{ $suggestion['notes'] }}</p>
+                            </div>
+                        @endforeach
+                    @endif
+
+                    <div class="flex justify-end">
+                        <flux:modal.close>
+                            <flux:button variant="ghost">閉じる</flux:button>
+                        </flux:modal.close>
+                    </div>
+                </div>
+            </flux:modal>
 
             <div class="flex flex-col gap-1">
                 <x-form-label label='備考' />

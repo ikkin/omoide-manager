@@ -22,11 +22,9 @@ class CreateItem extends Component
     use ItemFormProperties;
     use HandlesDisposalPlan;
 
-    public Collection $categories;
-
     public function mount()
     {
-        $this->categories = Category::all();
+        $this->initializeCategories();
     }
 
     public function deleteImage ()
@@ -36,6 +34,12 @@ class CreateItem extends Component
 
     public function register()
     {
+        //AI提案の取得中は登録不可
+        if ($this->isLoadingAi) {
+            $this->addError('ai_loading', 'AI提案の取得中は登録できません。取得完了後に登録してください。');
+            return;
+        }
+
         $this->validate();
 
         //家財件数チェック

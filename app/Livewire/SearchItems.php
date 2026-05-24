@@ -65,7 +65,7 @@ class SearchItems extends Component
             $query->whereIn('disposal_status', $this->disposal_statuses);
         }
 
-        $this->items = $query->get();
+        $this->items = $query->latest()->get();
 
         // 統計情報を計算
         $this->itemCount = $this->items->count();

@@ -67,7 +67,7 @@
                 <x-form-label label='カテゴリ' required />
                 <select wire:model="category_id" class="border border-gray-300 rounded px-2 py-1">
                     <option value="">選択してください</option>
-                     @foreach($categories as $category)
+                    @foreach($categories as $category)
                         <option value="{{ $category->id }}">
                             {{ $category->category_name }}
                         </option>
@@ -213,18 +213,61 @@
 
             <div class="flex flex-col gap-1">
                 <x-form-label label='AIによる廃棄の提案（参考情報）' />
-                <p class="pl-2">{{ $ai_text ?? '未取得' }}</p>
+                {{-- 状態に応じて表示を切り替え --}}
+                @if($isLoadingAi)
+                    <p class="pl-2 text-gray-500">取得中...</p>
+                @elseif($ai_text === null)
+                    <p class="pl-2">未取得</p>
+                @else
+                    {{-- モーダルを開くリンク --}}
+                    <flux:modal.trigger name="ai-suggestion">
+                        <span class="pl-2 text-blue-500 cursor-pointer underline">表示する</span>
+                    </flux:modal.trigger>
+                @endif
+
+                <x-error-message field='ai_loading' />
+                <x-error-message field='ai_error' />
+
                 <flux:button 
                     type="button"
                     icon="arrow-down-tray"
                     wire:click="getAiText"
+                    wire:confirm="取得が完了するまで家財情報の更新ができませんがよろしいですか？"
                     size="sm" 
-                    class="self-end px-4 py-2 !bg-[#C4C598] rounded cursor-pointer"
-                    disabled
+                    class="self-end px-4 py-2 !bg-[#C4C598] rounded cursor-pointer hover:bg-gray-500!"
+                    wire:loading.attr="disabled"
+                    wire:target="getAiText"
                 >
-                    取得
+                    <span wire:loading.remove wire:target="getAiText">取得</span>
+                    <span wire:loading wire:target="getAiText">取得中...</span>
                 </flux:button>
             </div>
+
+            {{-- AIの提案内容モーダル --}}
+            <flux:modal name="ai-suggestion" class="md:w-[600px]">
+                <div class="space-y-4">
+                    <flux:heading size="lg">AIによる廃棄の提案</flux:heading>
+                    <p class="text-xs text-gray-500">※あくまで参考情報です。実際の廃棄方法は各自治体の規則に従ってください。</p>
+
+                    @if($ai_text)
+                        @foreach($ai_text as $suggestion)
+                            <div class="border rounded p-3 flex flex-col gap-1">
+                                <p class="font-bold">{{ $suggestion['method'] }}</p>
+                                <p class="text-sm">概要：{{ $suggestion['overview'] }}</p>
+                                <p class="text-sm">費用感：{{ $suggestion['cost'] }}</p>
+                                <p class="text-sm">手間：{{ $suggestion['effort'] }}</p>
+                                <p class="text-sm">注意点：{{ $suggestion['notes'] }}</p>
+                            </div>
+                        @endforeach
+                    @endif
+
+                    <div class="flex justify-end">
+                        <flux:modal.close>
+                            <flux:button variant="ghost">閉じる</flux:button>
+                        </flux:modal.close>
+                    </div>
+                </div>
+            </flux:modal>
 
             <div class="flex flex-col gap-1">
                 <x-form-label label='備考' />
@@ -243,6 +286,8 @@
             wire:click="update"
             wire:confirm="更新してよろしいですか？" 
             class="px-6 py-2 !bg-[#C4C598] rounded cursor-pointer hover:bg-gray-500!"
+            wire:loading.attr="disabled"
+            wire:target="getAiText"
         >
             更新
         </flux:button>
