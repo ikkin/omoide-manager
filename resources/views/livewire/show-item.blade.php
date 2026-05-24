@@ -26,33 +26,33 @@
         <div class="flex flex-col gap-4 md:w-1/3">
 
             <div class="flex flex-col gap-1">
-                <p class="text-sm font-bold bg-[#E2EBB7] px-2 py-1">名称</p>
-                <p>{{ $item->item_name }}</p>
+                <x-form-label label='名称' />
+                <p class="pl-2">{{ $item->item_name }}</p>
             </div>
 
             <div class="flex flex-col gap-1">
-                <p class="text-sm font-bold bg-[#E2EBB7] px-2 py-1">カテゴリ</p>
-                <p>{{ $item->category->category_name }}</p>
+                <x-form-label label='カテゴリ' />
+                <p class="pl-2">{{ $item->category->category_name }}</p>
             </div>
 
             <div class="flex flex-col gap-1">
-                <p class="text-sm font-bold bg-[#E2EBB7] px-2 py-1">型番</p>
-                <p>{{ $item->model_no }}</p>
+                <x-form-label label='型番' />
+                <p class="pl-2">{{ $item->model_no }}</p>
             </div>
 
             <div class="flex flex-col gap-1">
-                <p class="text-sm font-bold bg-[#E2EBB7] px-2 py-1">状態</p>
-                <p>{{ ItemConstants::CONDITIONS[$item->condition] }}</p>
+                <x-form-label label='状態' />
+                <p class="pl-2">{{ ItemConstants::CONDITIONS[$item->condition] }}</p>
             </div>
 
             <div class="flex flex-col gap-1">
-                <p class="text-sm font-bold bg-[#E2EBB7] px-2 py-1">状態詳細</p>
-                <p>{{ $item->condition_detail }}</p>
+                <x-form-label label='状態詳細' />
+                <p class="pl-2">{{ $item->condition_detail }}</p>
             </div>
 
             {{-- 処分方針 --}}
             <div class="flex flex-col gap-2">
-                <p class="text-sm font-bold bg-[#E2EBB7] px-2 py-1">処分方針</p>
+                <x-form-label label='処分方針' />
 
                 <p class="flex items-center gap-2 pointer-events-none">
                     <input 
@@ -63,7 +63,7 @@
                     <span class="flex items-center rounded gap-2 flex-1 min-w-0 px-2"
                             style="background-color: {{ ItemConstants::DISPOSAL_COLOR_CODES[ItemConstants::DISPOSAL_PLAN_DISCARD] }}"
                     >
-                        <span class="font-bold whitespace-nowrap my-1 py-2">廃棄</span>
+                        <span class="font-semibold whitespace-nowrap my-1 py-2">廃棄</span>
                         <span class="text-sm whitespace-nowrap">廃棄費用</span>
                         <span class="my-2 px-2 py-1 flex-1 min-w-0 text-end">{{ $item->discard_cost }}</span>
                         <span>円</span>
@@ -79,7 +79,7 @@
                     <span class="flex items-center rounded gap-2 flex-1 min-w-0 px-2"
                             style="background-color: {{ ItemConstants::DISPOSAL_COLOR_CODES[ItemConstants::DISPOSAL_PLAN_SALE] }}"
                     >
-                        <span class="font-bold whitespace-nowrap my-1 py-2">売却</span>
+                        <span class="font-semibold whitespace-nowrap my-1 py-2">売却</span>
                         <span class="text-sm whitespace-nowrap">売却価格</span>
                         <span class="my-2 px-2 py-1 flex-1 min-w-0 text-end">{{ $item->sale_price }}</span>
                         <span>円</span>
@@ -95,7 +95,7 @@
                     <span class="flex items-center rounded gap-2 flex-1 min-w-0 px-2"
                             style="background-color: {{ ItemConstants::DISPOSAL_COLOR_CODES[ItemConstants::DISPOSAL_PLAN_TRANSFER] }}"
                     >
-                        <span class="font-bold whitespace-nowrap my-1 py-2">譲渡</span>
+                        <span class="font-semibold whitespace-nowrap my-1 py-2">譲渡</span>
                         <span class="text-sm whitespace-nowrap">譲渡先</span>
                         <span class="my-2 px-2 py-1 flex-1 min-w-0 text-start">{{ $item->transfer_target }}</span>
                     </span>
@@ -110,7 +110,7 @@
                     <span class="flex items-center rounded gap-2 flex-1 min-w-0 px-2"
                             style="background-color: {{ ItemConstants::DISPOSAL_COLOR_CODES[ItemConstants::DISPOSAL_PLAN_STORAGE] }}"
                     >
-                        <span class="font-bold whitespace-nowrap my-1 py-2">保管</span>
+                        <span class="font-semibold whitespace-nowrap my-1 py-2">保管</span>
                         <span class="text-sm whitespace-nowrap">保管期限</span>
                         <span class="my-2 px-2 py-1 flex-1 min-w-0 text-end">{{ $item->storage_deadline?->format('Y年m月d日') }}</span>
                         <span class="whitespace-nowrap">まで</span>
@@ -123,7 +123,7 @@
                         class="scale-125 ml-2"
                         @if($item->disposal_plan == ItemConstants::DISPOSAL_PLAN_NONE) checked @endif
                     >
-                    <span class="font-bold rounded flex-1 my-1 px-2 py-2"
+                    <span class="font-semibold rounded flex-1 my-1 px-2 py-2"
                             style="background-color: {{ ItemConstants::DISPOSAL_COLOR_CODES[ItemConstants::DISPOSAL_PLAN_NONE] }}"
                     >
                         未指定
@@ -137,24 +137,20 @@
         <div class="flex flex-col gap-4 md:w-1/3">
 
             <div class="flex flex-col gap-1">
-                <p class="text-sm font-bold bg-[#E2EBB7] px-2 py-1">処分ステータス</p>
-                <p>{{ ItemConstants::DISPOSAL_STATUSES[$item->disposal_status] }}</p>
+                <x-form-label label='処分ステータス' />
+                <p class="pl-2">{{ ItemConstants::DISPOSAL_STATUSES[$item->disposal_status] }}</p>
             </div>
 
             <div class="flex flex-col gap-1">
-                <p class="text-sm font-bold bg-[#E2EBB7] px-2 py-1">
-                    AIによる廃棄の提案（参考情報）
-                </p>
-                <p>{{ $item->ai_text ?? '未取得' }}</p>
+                <x-form-label label='AIによる廃棄の提案（参考情報）' />
+                <p class="pl-2">{{ $item->ai_text ?? '未取得' }}</p>
                 @if(!empty($item->ai_text))
                     <a href="">表示する</a>
                 @endif
             </div>
 
             <div class="flex flex-col gap-1">
-                <p class="text-sm font-bold bg-[#E2EBB7] px-2 py-1">
-                    備考
-                </p>
+                <x-form-label label='備考' />
                 <textarea class="border border-gray-300 rounded p-1 h-32" readonly>{{ $item->remark }}</textarea>
             </div>
 
@@ -168,7 +164,7 @@
             icon="pencil" 
             href="{{ route('items.edit', $item->id) }}"
             wire:navigate
-            class="px-6 py-2 !bg-[#C4C598] rounded"
+            class="px-6 py-2 !bg-[#C4C598] rounded hover:bg-gray-500!"
         >
             編集
         </flux:button>
@@ -178,7 +174,7 @@
             icon="trash" 
             wire:click="delete({{ $item->id }})" 
             wire:confirm="本当に削除しますか? "
-            class="px-6 py-2 !bg-[#C4C598] rounded cursor-pointer"
+            class="px-6 py-2 !bg-[#C4C598] rounded cursor-pointer hover:bg-gray-500!"
         >
             削除
         </flux:button>
@@ -187,7 +183,7 @@
             icon="arrow-uturn-left"
             wire:navigate
             href="{{ route('search-items') }}?autoSearch=true"
-            class="px-6 py-2 !bg-[#C4C598] rounded"
+            class="px-6 py-2 !bg-[#C4C598] rounded hover:bg-gray-500!"
         >
             戻る
         </flux:button>

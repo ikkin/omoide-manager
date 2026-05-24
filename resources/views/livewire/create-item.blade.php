@@ -28,7 +28,7 @@
                 <flux:button 
                     type="button"
                     icon="photo"
-                    class="px-4 py-2 !bg-[#C4C598] rounded cursor-pointer" 
+                    class="px-4 py-2 !bg-[#C4C598] rounded cursor-pointer hover:bg-gray-500!" 
                     onclick="document.getElementById('fileInput').click()"
                 >
                     画像変更
@@ -36,7 +36,7 @@
                 <flux:button 
                     type="button"
                     icon="trash"
-                    class="px-4 py-2 !bg-[#C4C598] rounded cursor-pointer" 
+                    class="px-4 py-2 !bg-[#C4C598] rounded cursor-pointer hover:bg-gray-500!" 
                     wire:click="deleteImage"
                     wire:confirm="画像を削除してよろしいですか？"
                 >
@@ -52,22 +52,16 @@
         <div class="flex flex-col gap-4 md:w-1/3">
 
             <div class="flex flex-col gap-1">
-                <p class="text-sm font-bold bg-[#E2EBB7] px-2 py-1">
-                    名称
-                    <x-required-label />
-                </p>
+                <x-form-label label='名称' required />
                 <input type="text" wire:model="item_name" class="border border-gray-300 rounded px-2 py-1">
                 <x-error-message field="item_name" />
             </div>
 
             <div class="flex flex-col gap-1">
-                <p class="text-sm font-bold bg-[#E2EBB7] px-2 py-1">
-                    カテゴリ
-                    <x-required-label />
-                </p>
+                <x-form-label label='カテゴリ' required />
                 <select wire:model="category_id" class="border border-gray-300 rounded px-2 py-1">
                     <option value="">選択してください</option>
-                     @foreach($categories as $category)
+                    @foreach($categories as $category)
                         <option value="{{ $category->id }}">
                             {{ $category->category_name }}
                         </option>
@@ -77,16 +71,13 @@
             </div>
 
             <div class="flex flex-col gap-1">
-                <p class="text-sm font-bold bg-[#E2EBB7] px-2 py-1">型番</p>
+                <x-form-label label='型番' />
                 <input type="text" wire:model="model_no" class="border border-gray-300 rounded px-2 py-1">
                 <x-error-message field="model_no" />
             </div>
 
             <div class="flex flex-col gap-1">
-                <p class="text-sm font-bold bg-[#E2EBB7] px-2 py-1">
-                    状態
-                    <x-required-label />
-                </p>
+                <x-form-label label='状態' required />
                 <select wire:model="condition" class="border border-gray-300 rounded px-2 py-1">
                     @foreach(ItemConstants::CONDITIONS as $value => $label)
                         <option value="{{ $value }}">{{ $label }}</option>
@@ -96,24 +87,21 @@
             </div>
 
             <div class="flex flex-col gap-1">
-                <p class="text-sm font-bold bg-[#E2EBB7] px-2 py-1">状態詳細</p>
+                <x-form-label label='状態詳細' />
                 <input type="text" wire:model="condition_detail" class="border border-gray-300 rounded px-2 py-1">
                 <x-error-message field="condition_detail" />
             </div>
 
             {{-- 処分方針 --}}
             <div class="flex flex-col gap-2">
-                <p class="text-sm font-bold bg-[#E2EBB7] px-2 py-1">
-                    処分方針
-                    <x-required-label />
-                </p>
+                <x-form-label label='処分方針' required />
 
                 <p class="flex items-center gap-2">
                     <input type="radio" wire:model.live="disposal_plan" value="1" class="scale-125 ml-2">
                     <span class="flex items-center rounded gap-2 flex-1 min-w-0 px-2"
                             style="background-color: {{ ItemConstants::DISPOSAL_COLOR_CODES[ItemConstants::DISPOSAL_PLAN_DISCARD] }}"
                     >
-                        <span class="font-bold whitespace-nowrap">廃棄</span>
+                        <span class="font-semibold whitespace-nowrap">廃棄</span>
                         <span class="text-sm whitespace-nowrap">廃棄費用</span>
                         <input type="number" wire:model="discard_cost"
                             @if($disposal_plan != ItemConstants::DISPOSAL_PLAN_DISCARD) disabled @endif
@@ -133,7 +121,7 @@
                     <span class="flex items-center rounded gap-2 flex-1 min-w-0 px-2"
                             style="background-color: {{ ItemConstants::DISPOSAL_COLOR_CODES[ItemConstants::DISPOSAL_PLAN_SALE] }}"
                     >
-                        <span class="font-bold whitespace-nowrap">売却</span>
+                        <span class="font-semibold whitespace-nowrap">売却</span>
                         <span class="text-sm whitespace-nowrap">売却価格</span>
                         <input type="number" wire:model="sale_price"
                             @if($disposal_plan != ItemConstants::DISPOSAL_PLAN_SALE) disabled @endif
@@ -153,7 +141,7 @@
                     <span class="flex items-center rounded gap-2 flex-1 min-w-0 px-2"
                             style="background-color: {{ ItemConstants::DISPOSAL_COLOR_CODES[ItemConstants::DISPOSAL_PLAN_TRANSFER] }}"
                     >
-                        <span class="font-bold whitespace-nowrap">譲渡</span>
+                        <span class="font-semibold whitespace-nowrap">譲渡</span>
                         <span class="text-sm whitespace-nowrap">譲渡先</span>
                         <input type="text" wire:model="transfer_target"
                             @if($disposal_plan != ItemConstants::DISPOSAL_PLAN_TRANSFER) disabled @endif
@@ -172,7 +160,7 @@
                     <span class="flex items-center rounded gap-2 flex-1 min-w-0 px-2"
                             style="background-color: {{ ItemConstants::DISPOSAL_COLOR_CODES[ItemConstants::DISPOSAL_PLAN_STORAGE] }}"
                     >
-                        <span class="font-bold whitespace-nowrap">保管</span>
+                        <span class="font-semibold whitespace-nowrap">保管</span>
                         <span class="text-sm whitespace-nowrap">保管期限</span>
                         <input type="date" wire:model="storage_deadline"
                             @if($disposal_plan != ItemConstants::DISPOSAL_PLAN_STORAGE) disabled @endif
@@ -189,7 +177,7 @@
 
                 <p class="flex items-center gap-2">
                     <input type="radio" wire:model.live="disposal_plan" value="5" class="scale-125 ml-2">
-                    <span class="font-bold rounded flex-1 my-1 px-2 py-2"
+                    <span class="font-semibold rounded flex-1 my-1 px-2 py-2"
                             style="background-color: {{ ItemConstants::DISPOSAL_COLOR_CODES[ItemConstants::DISPOSAL_PLAN_NONE] }}"
                     >
                         未指定
@@ -208,10 +196,7 @@
         <div class="flex flex-col gap-4 md:w-1/3">
 
             <div class="flex flex-col gap-1">
-                <p class="text-sm font-bold bg-[#E2EBB7] px-2 py-1">
-                    処分ステータス
-                    <x-required-label />
-                </p>
+                <x-form-label label='処分ステータス' required />
                 <select wire:model="disposal_status" class="border border-gray-300 rounded px-2 py-1">
                     @foreach(ItemConstants::DISPOSAL_STATUSES as $value => $label)
                         <option value="{{ $value }}">{{ $label }}</option>
@@ -221,10 +206,8 @@
             </div>
 
             <div class="flex flex-col gap-1">
-                <p class="text-sm font-bold bg-[#E2EBB7] px-2 py-1">
-                    AIによる廃棄の提案（参考情報）
-                </p>
-                <p>{{ $ai_text ?? '未取得' }}</p>
+                <x-form-label label='AIによる廃棄の提案（参考情報）' />
+                <p class="pl-2">{{ $ai_text ?? '未取得' }}</p>
                 <flux:button 
                     type="button"
                     icon="arrow-down-tray"
@@ -238,9 +221,7 @@
             </div>
 
             <div class="flex flex-col gap-1">
-                <p class="text-sm font-bold bg-[#E2EBB7] px-2 py-1">
-                    備考
-                </p>
+                <x-form-label label='備考' />
                 <textarea wire:model="remark" class="border border-gray-300 rounded px-2 py-1 h-32"></textarea>
                 <x-error-message field="remark" />
             </div>
@@ -259,7 +240,7 @@
                 icon="plus-circle" 
                 wire:click="register" 
                 wire:confirm="登録してよろしいですか？" 
-                class="px-6 py-2 !bg-[#C4C598] rounded cursor-pointer"
+                class="px-6 py-2 !bg-[#C4C598] rounded cursor-pointer hover:bg-gray-500!"
             >
                 登録
             </flux:button>
@@ -268,7 +249,7 @@
                 icon="arrow-uturn-left"
                 wire:navigate
                 href="{{ route('search-items') }}?autoSearch=true"
-                class="px-6 py-2 !bg-[#C4C598] rounded"
+                class="px-6 py-2 !bg-[#C4C598] rounded hover:bg-gray-500!"
             >
                 戻る
             </flux:button>

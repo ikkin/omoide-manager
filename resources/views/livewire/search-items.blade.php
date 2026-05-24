@@ -26,7 +26,7 @@
                         icon="plus-circle"
                         href="{{ route('items.create') }}"
                         wire:navigate size="sm"
-                        class="!bg-[#C4C598] w-full"
+                        class="!bg-[#C4C598] w-full hover:bg-gray-500!"
                     >
                         新規登録
                     </flux:button>    
@@ -41,7 +41,7 @@
                             icon="magnifying-glass"
                             wire:click="search"
                             size="sm"
-                            class="!bg-[#C4C598] w-full cursor-pointer"
+                            class="!bg-[#C4C598] w-full cursor-pointer hover:bg-gray-500!"
                         >
                             検索
                         </flux:button>
@@ -59,7 +59,7 @@
                     <div class="flex flex-col">
                         <p class="text-sm font-bold px-2 py-1">カテゴリ</p>
                         <select wire:model="category_id" class="border border-gray-300 rounded mx-5 pl-1 bg-white">
-                            <option value="">選択してください</option>
+                            <option value="">未選択</option>
                             @foreach($categories as $category)
                                 <option value="{{ $category->id }}">
                                     {{ $category->category_name }}
@@ -83,6 +83,11 @@
                         @foreach(ItemConstants::DISPOSAL_PLANS as $value => $label)
                             <p class="flex items-center gap-2">
                                 <input type="checkbox" wire:model="disposal_plans" value="{{ $value }}" class="ml-5 scale-125">
+                                <span 
+                                    class="w-4 h-4 rounded-2xl border border-gray-600 inline-block"
+                                    style="background-color: {{ ItemConstants::DISPOSAL_COLOR_CODES[$value] }}"
+                                >
+                                </span>
                                 <span class="text-sm">{{ $label }}</span>
                             </p>
                         @endforeach
@@ -127,10 +132,10 @@
         </div>
 
         {{-- 検索家財一覧 --}}
-        <div class="grid gird-cols-1 md:grid-cols-2 gap-4">
+        <div class="grid gird-cols-1 md:grid-cols-2 gap-6 m-4">
             @foreach ( $items as $item)
                 <article 
-                    class="flex p-4 shadow-lg rounded-xl" 
+                    class="flex p-4 shadow-lg rounded-xl hover:scale-105 transition duration-200" 
                     style="background-color: {{ ItemConstants::DISPOSAL_COLOR_CODES[$item->disposal_plan] }}"
                 >
                     <a href="/items/{{ $item->id }}" class="flex gap-4 w-full">
@@ -145,11 +150,11 @@
                             >
                         </div>
                         <div class="flex flex-col gap-1">
-                            <flux:heading size="xl" level="2">{{ $item->item_name }}</flux:heading>
-                            <p class="mt-1 text-base">{{ $item->category->category_name ?? '未分類' }}</p>
+                            <p class="font-bold text-lg md:text-xl">{{ Str::limit($item->item_name, 20) }}</p>
+                            <p class="mt-1 text-sm md:text-base">{{ $item->category->category_name ?? '未分類' }}</p>
                             
-                            <p class="mt-2 text-base">{{ ItemConstants::CONDITIONS[$item->condition] }}</p>
-                            <p class="text-xl">
+                            <p class="mt-5 md:mt-3 text-sm md:text-base">{{ ItemConstants::CONDITIONS[$item->condition] }}</p>
+                            <p class="text-lg md:text-xl font-semibold">
                                 {{ ItemConstants::DISPOSAL_PLANS[$item->disposal_plan] }}
                                 @if( ($item->disposal_plan == ItemConstants::DISPOSAL_PLAN_DISCARD) && (!empty($item->discard_cost)) ) 
                                     &#40;<span class="text-[#FF0000]">{{ number_format($item->discard_cost) }} 円</span>&#41;
@@ -161,7 +166,7 @@
                                     &#40;{{ $item->storage_deadline->format('Y年m月d日') }}まで&#41;
                                 @endif
                             </p>
-                            <p class="text-base">{{ ItemConstants::DISPOSAL_STATUSES[$item->disposal_status] }}</p>
+                            <p class="text-sm md:text-base">{{ ItemConstants::DISPOSAL_STATUSES[$item->disposal_status] }}</p>
                         </div>
                     </a>
                 </article>
