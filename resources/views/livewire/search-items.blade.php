@@ -111,7 +111,7 @@
     <main id="list-items" class="flex flex-col w-full p-2">
 
         {{-- 検索統計情報 --}}
-        <div id="result-statistic">
+        <div id="result-statistic" class="mx-4 my-2">
             <h2>家財検索結果</h2>
             <div>
                 <dl class="grid grid-cols-1 md:grid-cols-3 mt-2 mb-2">
