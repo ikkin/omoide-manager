@@ -5,60 +5,54 @@
 <div class="md:flex min-h-screen p-0" x-data="{open : false}">
 
     {{-- スマホ用 --}}
-    <div class="md:hidden bg-[#E2EBB7] p-4 border-b">
+    <div class="md:hidden bg-white p-4 border-b border-zinc-500">
         <flux:button
             type="button"
             @click="open = !open"
             icon="arrows-up-down"
-            class="w-full !bg-[#C4C597] rounded px-4 py-2"
+            class="w-full !bg-[#807E79] !text-white rounded px-4 py-2 hover:bg-zinc-300!"
         >
             追加・検索メニュー表示切替
         </flux:button>
     </div>
     
     {{-- サイドバー --}}
-    <aside id="sidebar" class="w-full pl-4 pb-4 bg-[#E2EBB7] md:w-60 md:block" x-show="open || window.innerWidth >= 768" x-transition>
+    <aside class="w-full px-4 pb-4 bg-white border-b border-zinc-500 md:border-r md:border-zinc-500 md:w-60 md:block" x-show="open || window.innerWidth >= 768" x-transition>
         <div>
-            <section id="add-item" class="pt-4">
+            <section class="pt-4">
                 <flux:heading size="lg" class="mb-2">家財新規登録</flux:heading>
-                <div class="px-5">
-                    <flux:button 
-                        icon="plus-circle"
-                        href="{{ route('items.create') }}"
-                        wire:navigate size="sm"
-                        class="!bg-[#C4C598] w-full hover:bg-gray-500!"
-                    >
-                        新規登録
-                    </flux:button>    
-                </div>
+                <flux:button 
+                    icon="plus-circle"
+                    href="{{ route('items.create') }}"
+                    wire:navigate
+                    class="!bg-[#807E79] !text-white w-full hover:bg-zinc-300!"
+                >
+                    新規登録
+                </flux:button>    
             </section>
-            <section id="search-item" class="mt-6">
+            <section class="mt-4">
                 <div>
                     <flux:heading size="lg" class="mb-2">家財検索</flux:heading>
-                    <div class="px-5">
-                        <flux:button
-                            type="button"
-                            icon="magnifying-glass"
-                            wire:click="search"
-                            size="sm"
-                            class="!bg-[#C4C598] w-full cursor-pointer hover:bg-gray-500!"
-                        >
-                            検索
-                        </flux:button>
-                    </div>
+                    <flux:button
+                        type="button"
+                        icon="magnifying-glass"
+                        wire:click="search"
+                        class="!bg-[#807E79] !text-white w-full cursor-pointer hover:bg-zinc-300!"
+                    >
+                        検　索
+                    </flux:button>
                 </div>
 
-                <div class="flex flex-col gap-2">
-                    <flux:heading size="lg" class="mt-2">検索条件</flux:heading>
-
-                    <div class="flex flex-col">
-                        <p class="text-sm font-bold px-2 py-1">名称</p>
-                        <input type="text" wire:model="item_name" class="border border-gray-300 rounded mx-5 pl-1 bg-white">
+                <flux:heading size="lg" class="mt-4 mb-2">検索条件</flux:heading>
+                <div class="flex flex-col gap-4">
+                    <div class="flex flex-col gap-1">
+                        <p class="text-sm font-semibold bg-[#E3E3E3] pl-2">名称</p>
+                        <input type="text" wire:model="item_name" class="text-sm border border-zinc-400 rounded pl-1 bg-white">
                     </div>
 
-                    <div class="flex flex-col">
-                        <p class="text-sm font-bold px-2 py-1">カテゴリ</p>
-                        <select wire:model="category_id" class="border border-gray-300 rounded mx-5 pl-1 bg-white">
+                    <div class="flex flex-col gap-1">
+                        <p class="text-sm font-semibold bg-[#E3E3E3] pl-2">カテゴリ</p>
+                        <select wire:model="category_id" class="text-sm border border-zinc-400 rounded pl-1 bg-white">
                             <option value="">未選択</option>
                             @foreach($categories as $category)
                                 <option value="{{ $category->id }}">
@@ -69,22 +63,22 @@
                     </div>
 
                     <div class="flex flex-col gap-1">
-                        <p class="text-sm font-bold px-2 py-1">状態</p>
+                        <p class="text-sm font-semibold bg-[#E3E3E3] pl-2">状態</p>
                         @foreach(ItemConstants::CONDITIONS as $value => $label)
                             <p class="flex items-center gap-2">
-                                <input type="checkbox" wire:model="conditions" value="{{ $value }}" class="ml-5 scale-125">
+                                <input type="checkbox" wire:model="conditions" value="{{ $value }}" class="ml-2 scale-125">
                                 <span class="text-sm">{{ $label }}</span>
                             </p>
                         @endforeach
                     </div>
                     
                     <div class="flex flex-col gap-1">
-                        <label class="text-sm font-bold px-2 py-1">処分方針</label>
+                        <label class="text-sm font-semibold bg-[#E3E3E3] pl-2">処分方針</label>
                         @foreach(ItemConstants::DISPOSAL_PLANS as $value => $label)
                             <p class="flex items-center gap-2">
-                                <input type="checkbox" wire:model="disposal_plans" value="{{ $value }}" class="ml-5 scale-125">
+                                <input type="checkbox" wire:model="disposal_plans" value="{{ $value }}" class="ml-2 scale-125">
                                 <span 
-                                    class="w-4 h-4 rounded-2xl border border-gray-600 inline-block"
+                                    class="w-4 h-4 rounded-2xl border border-zinc-400 inline-block"
                                     style="background-color: {{ ItemConstants::DISPOSAL_COLOR_CODES[$value] }}"
                                 >
                                 </span>
@@ -94,10 +88,10 @@
                     </div>
                     
                     <div class="flex flex-col gap-1">
-                        <p class="text-sm font-bold px-2 py-1">処分ステータス</p>
+                        <p class="text-sm font-semibold bg-[#E3E3E3] pl-2">処分ステータス</p>
                         @foreach(ItemConstants::DISPOSAL_STATUSES as $value => $label)
                             <p class="flex items-center gap-2">
-                                <input type="checkbox" wire:model="disposal_statuses" value="{{ $value }}" class="ml-5 scale-125">
+                                <input type="checkbox" wire:model="disposal_statuses" value="{{ $value }}" class="ml-2 scale-125">
                                 <span class="text-sm">{{ $label }}</span>
                             </p>
                         @endforeach
@@ -108,11 +102,11 @@
     </aside>
 
     {{-- 検索結果 --}}
-    <main id="list-items" class="flex flex-col w-full p-2">
+    <main class="flex flex-col w-full p-2">
 
         {{-- 検索統計情報 --}}
-        <div id="result-statistic" class="mx-4 my-2">
-            <h2>家財検索結果</h2>
+        <div class="mx-4 my-2">
+            <flux:heading size="lg">家財検索結果</flux:heading>
             <div>
                 <dl class="grid grid-cols-1 md:grid-cols-3 mt-2 mb-2">
                     <div class="flex">
@@ -124,7 +118,7 @@
                         <dd class="text-[#FF0000]">ー{{ number_format($totalDiscardCost) }}円</dd>
                     </div>
                     <div class="flex">
-                        <dt>合計売却価格：</dt>
+                        <dt>合計売却収入：</dt>
                         <dd class="text-[#0000FF]">＋{{ number_format($totalSalePrice) }}円</dd>
                     </div>
                 </dl>
@@ -146,7 +140,7 @@
                                     : asset('images/no-image.png')
                                  }}" 
                                 alt="{{ $item->item_name }}"
-                                class="w-[120px] h-[160px] object-contain border border-gray-400"
+                                class="w-[120px] h-[160px] object-contain border border-zinc-400 bg-white"
                             >
                         </div>
                         <div class="flex flex-col gap-1">

@@ -1,8 +1,8 @@
 <x-layouts.auth>
-    <div class="flex flex-col gap-4 border-3  border-gray-300 rounded-xl p-4 bg-white">
+    <div class="flex flex-col gap-4 border-2 border-zinc-400 rounded-xl p-4 bg-white">
 
         <div class="flex justify-center mb-2">
-            <img src="{{ asset('app-image.png') }}" alt="アプリ画像" class="w-72 h-auto">
+            <img src="{{ asset('app-image-bg-white.png') }}" alt="アプリ画像" class="w-72 h-auto">
         </div>
 
         <!-- Session Status -->
@@ -23,7 +23,7 @@
                 placeholder="email@example.com"
             />
 
-            <flux:button variant="primary" type="submit" class="w-full !bg-[#C4C598] mt-2 text-black" data-test="email-password-reset-link-button">
+            <flux:button variant="primary" type="submit" class="w-full !bg-[#807E79] mt-2 !text-white hover:bg-zinc-300! cursor-pointer" data-test="email-password-reset-link-button">
                 送　信
             </flux:button>
         </form>

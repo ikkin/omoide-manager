@@ -1,4 +1,4 @@
-@props(['label', 'required' => false , 'class' => 'font-semibold bg-[#E2EBB7] px-2 py-1'])
+@props(['label', 'required' => false , 'class' => 'font-semibold bg-[#E3E3E3] px-2 py-1'])
 
 <p class="{{ $class }}">
     {{ $label }}

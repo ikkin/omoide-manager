@@ -1,6 +1,6 @@
 <img
-    src="{{ asset('app-image.png') }}"
+    src="{{ asset('app-image-bg-white.png') }}"
     alt="ロゴ"
     {{ $attributes }}
-    class="w-[120px] h-[51px] object-contain my-1 rounded"
+    class="w-[105px] h-[45px] object-contain my-1"
 >

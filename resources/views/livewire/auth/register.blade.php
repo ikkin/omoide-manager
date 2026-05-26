@@ -1,14 +1,14 @@
 <x-layouts.auth>
-    <div class="flex flex-col gap-4 border-3  border-gray-300 rounded-xl p-4 bg-white">
+    <div class="flex flex-col gap-4 border-2 border-zinc-400 rounded-xl p-4 bg-white">
 
         <div class="flex justify-center mb-2">
-            <img src="{{ asset('app-image.png') }}" alt="アプリ画像" class="w-72 h-auto">
+            <img src="{{ asset('app-image-bg-white.png') }}" alt="アプリ画像" class="w-72 h-auto">
         </div>
 
         <p class="text-center text-sm">
-            このアプリは思い出の品々を<br>
-            「廃棄」「譲渡」「売却」「保管」<br>
-            の４つの処分方針で登録して<br>
+            このアプリは思い出の品々（家財）を<br>
+            「廃棄」「売却」「譲渡」「保管」<br>
+            の４つの処分方針で選択して登録し、<br>
             管理するアプリです。
         </p>
 
@@ -63,7 +63,7 @@
                 viewable
             />
 
-            <flux:button type="submit" variant="primary" class="w-full !bg-[#C4C598] mt-2 text-black">
+            <flux:button type="submit" variant="primary" class="w-full !bg-[#807E79] mt-2 !text-white hover:bg-zinc-300! cursor-pointer">
                 登　録
             </flux:button>
         </form>

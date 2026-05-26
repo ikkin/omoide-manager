@@ -3,7 +3,7 @@
 @endphp
 
 <main class="p-4">
-    <flux:heading size="lg" class="mb-2">家財照会</flux:heading>
+    <flux:heading size="lg" class="mb-4">家財照会</flux:heading>
 
     {{-- 3カラムコンテナ --}}
     <div class="flex flex-col md:flex-row gap-4">
@@ -17,7 +17,7 @@
                             : asset('images/no-image.png')
                         }}" 
                     alt="画像"
-                    class="w-full h-auto border object-contain"
+                    class="w-full h-auto max-h-[920px] border border-zinc-400 object-contain"
                 >
             </div>
         </div>
@@ -80,7 +80,7 @@
                             style="background-color: {{ ItemConstants::DISPOSAL_COLOR_CODES[ItemConstants::DISPOSAL_PLAN_SALE] }}"
                     >
                         <span class="font-semibold whitespace-nowrap my-1 py-2">売却</span>
-                        <span class="text-sm whitespace-nowrap">売却価格</span>
+                        <span class="text-sm whitespace-nowrap">売却収入</span>
                         <span class="my-2 px-2 py-1 flex-1 min-w-0 text-end">{{ $item->sale_price }}</span>
                         <span>円</span>
                     </span>
@@ -134,14 +134,14 @@
         </div>
 
         {{-- 右カラム：ステータス・AI・備考 --}}
-        <div class="flex flex-col gap-4 md:w-1/3">
+        <div class="flex flex-col md:w-1/3">
 
             <div class="flex flex-col gap-1">
                 <x-form-label label='処分ステータス' />
                 <p class="pl-2">{{ ItemConstants::DISPOSAL_STATUSES[$item->disposal_status] }}</p>
             </div>
 
-            <div class="flex flex-col gap-1">
+            <div class="flex flex-col gap-1 mt-4">
                 <x-form-label label='AIによる廃棄の提案（参考情報）' />
                 @if($item->ai_text === null)
                     <p class="pl-2">未取得</p>
@@ -162,15 +162,15 @@
                     @if($item->ai_text)
                         @foreach($item->ai_text as $suggestion)
                             <div class="border rounded p-3 flex flex-col gap-1">
-                                <p class="font-bold mb-2 w-full bg-[#E2EBB7]">{{ $suggestion['method'] }}</p>
+                                <p class="font-bold mb-2 w-full bg-[#E3E3E3]">{{ $suggestion['method'] }}</p>
                                 <dl>
                                     <dt class="font-semibold">概要</dt>
                                     <dd class="text-sm ml-2">{{ $suggestion['overview'] }}</dd>
-                                    <dt class="font-semibold">費用感</dt>
+                                    <dt class="font-semibold mt-2">費用感</dt>
                                     <dd class="text-sm ml-2">{{ $suggestion['cost'] }}</dd>
-                                    <dt class="font-semibold mt-1">手間</dt>
+                                    <dt class="font-semibold mt-2">手間</dt>
                                     <dd class="text-sm ml-2">{{ $suggestion['effort'] }}</dd>
-                                    <dt class="font-semibold mt-1">注意点</dt>
+                                    <dt class="font-semibold mt-2">注意点</dt>
                                     <dd class="text-sm ml-2">{{ $suggestion['notes'] }}</dd>
                                 </dl>
                             </div>
@@ -185,9 +185,9 @@
                 </div>
             </flux:modal>
 
-            <div class="flex flex-col gap-1">
+            <div class="flex flex-col gap-1 mt-4">
                 <x-form-label label='備考' />
-                <textarea class="border border-gray-300 rounded p-1 h-32" readonly>{{ $item->remark }}</textarea>
+                <textarea class="border border-zinc-400 rounded p-1 h-32" readonly>{{ $item->remark }}</textarea>
             </div>
 
         </div>
@@ -200,7 +200,7 @@
             icon="pencil" 
             href="{{ route('items.edit', $item->id) }}"
             wire:navigate
-            class="px-6 py-2 !bg-[#C4C598] rounded hover:bg-gray-500!"
+            class="px-6 py-2 !bg-[#807E79] !text-white rounded hover:bg-zinc-300!"
         >
             編集
         </flux:button>
@@ -210,7 +210,7 @@
             icon="trash" 
             wire:click="delete({{ $item->id }})" 
             wire:confirm="本当に削除しますか? "
-            class="px-6 py-2 !bg-[#C4C598] rounded cursor-pointer hover:bg-gray-500!"
+            class="px-6 py-2 !bg-[#807E79] !text-white rounded cursor-pointer hover:bg-zinc-300!"
         >
             削除
         </flux:button>
@@ -219,7 +219,7 @@
             icon="arrow-uturn-left"
             wire:navigate
             href="{{ route('search-items') }}?autoSearch=true"
-            class="px-6 py-2 !bg-[#C4C598] rounded hover:bg-gray-500!"
+            class="px-6 py-2 !bg-[#807E79] !text-white rounded hover:bg-zinc-300!"
         >
             戻る
         </flux:button>

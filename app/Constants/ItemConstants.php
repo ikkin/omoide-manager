@@ -53,10 +53,10 @@ class ItemConstants
 
     //処分方針カラー
     const DISPOSAL_COLOR_CODES = [
-        self::DISPOSAL_PLAN_DISCARD     => '#F4CCCC', //廃棄
-        self::DISPOSAL_PLAN_SALE        => '#C9DAF8', //売却
-        self::DISPOSAL_PLAN_TRANSFER    => '#D9EAD3', //譲渡
-        self::DISPOSAL_PLAN_STORAGE     => '#FFF2CC', //保管
-        self::DISPOSAL_PLAN_NONE        => '#CFCFCF', //未指定
+        self::DISPOSAL_PLAN_DISCARD     => '#E8CCC5', //廃棄
+        self::DISPOSAL_PLAN_SALE        => '#BDCED3', //売却
+        self::DISPOSAL_PLAN_TRANSFER    => '#CFD4AE', //譲渡
+        self::DISPOSAL_PLAN_STORAGE     => '#F6E7C6', //保管
+        self::DISPOSAL_PLAN_NONE        => '#BBB9B2', //未指定
     ];
 }

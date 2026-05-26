@@ -1,8 +1,8 @@
 <x-layouts.auth>
-    <div class="flex flex-col gap-4 border-3 border-gray-300 rounded-xl p-4 bg-white">
+    <div class="flex flex-col gap-4 border-2 border-zinc-400 rounded-xl p-4 bg-white">
         
         <div class="flex justify-center mb-2">
-            <img src="{{ asset('app-image.png') }}" alt="アプリ画像" class="w-72 h-auto">
+            <img src="{{ asset('app-image-bg-white.png') }}" alt="アプリ画像" class="w-72 h-auto">
         </div>
 
         <p class="font-bold text-lg my-1">ログイン</p>
@@ -46,7 +46,7 @@
             <flux:checkbox name="remember" :label="__('Remember me')" :checked="old('remember')" /> --}}
 
             <div class="flex items-center justify-end">
-                <flux:button variant="primary" type="submit" class="w-full !bg-[#C4C598] text-black mt-2" data-test="login-button">
+                <flux:button variant="primary" type="submit" class="w-full !bg-[#807E79] !text-white mt-2 hover:bg-zinc-300! cursor-pointer" data-test="login-button">
                     ログイン
                 </flux:button>
             </div>

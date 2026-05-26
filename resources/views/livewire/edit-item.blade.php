@@ -3,7 +3,7 @@
 @endphp
 
 <main class="p-4">
-    <flux:heading size="lg" class="mb-2">家財編集</flux:heading>
+    <flux:heading size="lg" class="mb-4">家財編集</flux:heading>
 
     {{-- 3カラムコンテナ --}}
     <div class="flex flex-col md:flex-row gap-4">
@@ -14,15 +14,15 @@
                 @if($image)
                     {{-- 新しい画像が選択された場合 --}}
                     <img src="{{ $image->temporaryUrl() }}" alt="画像"
-                        class="w-full h-auto border object-contain">
+                        class="w-full h-auto max-h-[920px] border border-zinc-400 object-contain">
                 @elseif($image_path)
                     {{-- 既存の画像がある場合 --}}
                     <img src="{{ route('image.show', basename($image_path)) }}" alt="画像"
-                        class="w-full h-auto border object-contain">
+                        class="w-full h-auto max-h-[920px] border border-zinc-400 object-contain">
                 @else
                     {{-- 画像がない場合 --}}
                     <img src="{{ asset('images/no-image.png') }}" alt="画像"
-                        class="w-full h-auto border object-contain">
+                        class="w-full h-auto max-h-[920px] border border-zinc-400 object-contain">
                 @endif
             </div>
             
@@ -30,11 +30,11 @@
             <input type="file" wire:model="image" accept="image/*"
                 class="hidden" id="fileInput">
 
-            <div class="flex w-full justify-end gap-2">
+            <div class="flex w-full justify-end gap-4">
                 <flux:button 
                     type="button"
                     icon="photo"
-                    class="px-4 py-2 !bg-[#C4C598] rounded cursor-pointer hover:bg-gray-500!" 
+                    class="px-4 py-2 !bg-[#807E79] !text-white rounded cursor-pointer hover:bg-zinc-300!" 
                     onclick="document.getElementById('fileInput').click()"
                 >
                     画像変更
@@ -42,7 +42,7 @@
                 <flux:button 
                     type="button"
                     icon="trash"
-                    class="px-4 py-2 !bg-[#C4C598] rounded cursor-pointer hover:bg-gray-500!" 
+                    class="px-4 py-2 !bg-[#807E79] !text-white rounded cursor-pointer hover:bg-zinc-300!" 
                     wire:click="deleteImage"
                     wire:confirm="画像を削除してよろしいですか？"
                 >
@@ -59,13 +59,13 @@
 
             <div class="flex flex-col gap-1">
                 <x-form-label label='名称' required />
-                <input type="text" wire:model="item_name" class="border border-gray-300 rounded px-2 py-1">
+                <input type="text" wire:model="item_name" class="border border-zinc-400 rounded px-2 py-1">
                 <x-error-message field="item_name" />
             </div>
 
             <div class="flex flex-col gap-1">
                 <x-form-label label='カテゴリ' required />
-                <select wire:model="category_id" class="border border-gray-300 rounded px-2 py-1">
+                <select wire:model="category_id" class="border border-zinc-400 rounded px-2 py-1">
                     <option value="">選択してください</option>
                     @foreach($categories as $category)
                         <option value="{{ $category->id }}">
@@ -78,13 +78,13 @@
 
             <div class="flex flex-col gap-1">
                 <x-form-label label='型番' />
-                <input type="text" wire:model="model_no" class="border border-gray-300 rounded px-2 py-1">
+                <input type="text" wire:model="model_no" class="border border-zinc-400 rounded px-2 py-1">
                 <x-error-message field="model_no" />
             </div>
 
             <div class="flex flex-col gap-1">
                 <x-form-label label='状態' required />
-                <select wire:model="condition" class="border border-gray-300 rounded px-2 py-1">
+                <select wire:model="condition" class="border border-zinc-400 rounded px-2 py-1">
                     @foreach(ItemConstants::CONDITIONS as $value => $label)
                         <option value="{{ $value }}">{{ $label }}</option>
                     @endforeach
@@ -94,7 +94,7 @@
 
             <div class="flex flex-col gap-1">
                 <x-form-label label='状態詳細' />
-                <input type="text" wire:model="condition_detail" class="border border-gray-300 rounded px-2 py-1">
+                <input type="text" wire:model="condition_detail" class="border border-zinc-400 rounded px-2 py-1">
                 <x-error-message field="condition_detail" />
             </div>
 
@@ -111,9 +111,9 @@
                         <span class="text-sm whitespace-nowrap">廃棄費用</span>
                         <input type="number" wire:model="discard_cost"
                             @if($disposal_plan != ItemConstants::DISPOSAL_PLAN_DISCARD) disabled @endif
-                            class="border border-gray-300 rounded my-2 px-2 py-1 flex-1 min-w-0 text-end
+                            class="border border-zinc-400 rounded my-2 px-2 py-1 flex-1 min-w-0 text-end
                                 @if($disposal_plan != ItemConstants::DISPOSAL_PLAN_DISCARD)
-                                    bg-gray-200
+                                    bg-zinc-300
                                 @else
                                     bg-white
                                 @endif"
@@ -128,12 +128,12 @@
                             style="background-color: {{ ItemConstants::DISPOSAL_COLOR_CODES[ItemConstants::DISPOSAL_PLAN_SALE] }}"
                     >
                         <span class="font-semibold whitespace-nowrap">売却</span>
-                        <span class="text-sm whitespace-nowrap">売却価格</span>
+                        <span class="text-sm whitespace-nowrap">売却収入</span>
                         <input type="number" wire:model="sale_price"
                             @if($disposal_plan != ItemConstants::DISPOSAL_PLAN_SALE) disabled @endif
-                            class="border border-gray-300 rounded my-2 px-2 py-1 flex-1 min-w-0 text-end
+                            class="border border-zinc-400 rounded my-2 px-2 py-1 flex-1 min-w-0 text-end
                                 @if($disposal_plan != ItemConstants::DISPOSAL_PLAN_SALE)
-                                    bg-gray-200
+                                    bg-zinc-300
                                 @else
                                     bg-white
                                 @endif"
@@ -151,9 +151,9 @@
                         <span class="text-sm whitespace-nowrap">譲渡先</span>
                         <input type="text" wire:model="transfer_target"
                             @if($disposal_plan != ItemConstants::DISPOSAL_PLAN_TRANSFER) disabled @endif
-                            class="border border-gray-300 rounded my-2 px-2 py-1 flex-1 min-w-0
+                            class="border border-zinc-400 rounded my-2 px-2 py-1 flex-1 min-w-0
                                 @if($disposal_plan != ItemConstants::DISPOSAL_PLAN_TRANSFER)
-                                    bg-gray-200
+                                    bg-zinc-300
                                 @else
                                     bg-white
                                 @endif"
@@ -170,9 +170,9 @@
                         <span class="text-sm whitespace-nowrap">保管期限</span>
                         <input type="date" wire:model="storage_deadline"
                             @if($disposal_plan != ItemConstants::DISPOSAL_PLAN_STORAGE) disabled @endif
-                            class="border border-gray-300 rounded my-2 px-2 py-1 flex-1 min-w-0
+                            class="border border-zinc-400 rounded my-2 px-2 py-1 flex-1 min-w-0
                                 @if($disposal_plan != ItemConstants::DISPOSAL_PLAN_STORAGE)
-                                    bg-gray-200
+                                    bg-zinc-300
                                 @else
                                     bg-white
                                 @endif"
@@ -199,11 +199,11 @@
         </div>
 
         {{-- 右カラム：ステータス・AI・備考 --}}
-        <div class="flex flex-col gap-4 md:w-1/3">
+        <div class="flex flex-col md:w-1/3">
 
             <div class="flex flex-col gap-1">
                 <x-form-label label='処分ステータス' required />
-                <select wire:model="disposal_status" class="border border-gray-300 rounded px-2 py-1">
+                <select wire:model="disposal_status" class="border border-zinc-400 rounded px-2 py-1">
                     @foreach(ItemConstants::DISPOSAL_STATUSES as $value => $label)
                         <option value="{{ $value }}">{{ $label }}</option>
                     @endforeach
@@ -211,7 +211,7 @@
                 <x-error-message field="disposal_status" />
             </div>
 
-            <div class="flex flex-col gap-1">
+            <div class="flex flex-col gap-1 mt-4">
                 <x-form-label label='AIによる廃棄の提案（参考情報）' />
                 {{-- 状態に応じて表示を切り替え --}}
                 @if($isLoadingAi)
@@ -234,7 +234,7 @@
                     wire:click="getAiText"
                     wire:confirm="取得が完了するまで家財情報の更新ができませんがよろしいですか？"
                     size="sm" 
-                    class="self-end px-4 py-2 !bg-[#C4C598] rounded cursor-pointer hover:bg-gray-500!"
+                    class="self-end px-4 py-2 !bg-[#807E79] !text-white rounded cursor-pointer hover:bg-zinc-300!"
                     wire:loading.attr="disabled"
                     wire:target="getAiText"
                 >
@@ -252,15 +252,15 @@
                     @if($ai_text)
                         @foreach($ai_text as $suggestion)
                             <div class="border rounded p-3 flex flex-col gap-1">
-                                <p class="font-bold mb-2 w-full bg-[#E2EBB7]">{{ $suggestion['method'] }}</p>
+                                <p class="font-bold mb-2 w-full bg-[#E3E3E3]">{{ $suggestion['method'] }}</p>
                                 <dl>
                                     <dt class="font-semibold">概要</dt>
                                     <dd class="text-sm ml-2">{{ $suggestion['overview'] }}</dd>
-                                    <dt class="font-semibold">費用感</dt>
+                                    <dt class="font-semibold mt-2">費用感</dt>
                                     <dd class="text-sm ml-2">{{ $suggestion['cost'] }}</dd>
-                                    <dt class="font-semibold mt-1">手間</dt>
+                                    <dt class="font-semibold mt-2">手間</dt>
                                     <dd class="text-sm ml-2">{{ $suggestion['effort'] }}</dd>
-                                    <dt class="font-semibold mt-1">注意点</dt>
+                                    <dt class="font-semibold mt-2">注意点</dt>
                                     <dd class="text-sm ml-2">{{ $suggestion['notes'] }}</dd>
                                 </dl>
                             </div>
@@ -275,9 +275,9 @@
                 </div>
             </flux:modal>
 
-            <div class="flex flex-col gap-1">
+            <div class="flex flex-col gap-1 mt-4">
                 <x-form-label label='備考' />
-                <textarea wire:model="remark" class="border border-gray-300 rounded px-2 py-1 h-32"></textarea>
+                <textarea wire:model="remark" class="border border-zinc-400 rounded px-2 py-1 h-32"></textarea>
                 <x-error-message field="remark" />
             </div>
 
@@ -291,7 +291,7 @@
             icon="arrow-path" 
             wire:click="update"
             wire:confirm="更新してよろしいですか？" 
-            class="px-6 py-2 !bg-[#C4C598] rounded cursor-pointer hover:bg-gray-500!"
+            class="px-6 py-2 !bg-[#807E79] !text-white rounded cursor-pointer hover:bg-zinc-300!"
             wire:loading.attr="disabled"
             wire:target="getAiText"
         >
@@ -302,7 +302,7 @@
             icon="arrow-uturn-left"
             wire:navigate
             href="{{ route('item', $this->item->id) }}"
-            class="px-6 py-2 !bg-[#C4C598] rounded hover:bg-gray-500!"
+            class="px-6 py-2 !bg-[#807E79] !text-white rounded hover:bg-zinc-300!"
         >
             戻る
         </flux:button>
