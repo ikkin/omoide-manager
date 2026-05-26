@@ -129,10 +129,10 @@
         <div class="grid gird-cols-1 md:grid-cols-2 gap-6 m-4">
             @foreach ( $items as $item)
                 <article 
-                    class="flex p-4 shadow-lg rounded-xl hover:scale-105 transition duration-200" 
+                    class="flex h-[160px] md:h-[200px] shadow-lg rounded-xl hover:scale-105 transition duration-200" 
                     style="background-color: {{ ItemConstants::DISPOSAL_COLOR_CODES[$item->disposal_plan] }}"
                 >
-                    <a href="/items/{{ $item->id }}" class="flex gap-4 w-full">
+                    <a href="/items/{{ $item->id }}" class="flex gap-2 md:gap-4 w-full">
                         <div class="flex-shrink-0">
                             <img
                                 src="{{ $item->image_path
@@ -140,27 +140,33 @@
                                     : asset('images/no-image.png')
                                  }}" 
                                 alt="{{ $item->item_name }}"
-                                class="w-[120px] h-[160px] object-contain border border-zinc-400 bg-white"
+                                class="w-[120px] md:w-[150px] h-full object-contain border border-zinc-400 bg-white rounded-l-xl"
                             >
                         </div>
-                        <div class="flex flex-col gap-1">
-                            <p class="font-bold text-lg md:text-xl">{{ Str::limit($item->item_name, 20) }}</p>
-                            <p class="mt-1 text-sm md:text-base">{{ $item->category->category_name ?? '未分類' }}</p>
-                            
-                            <p class="mt-5 md:mt-3 text-sm md:text-base">{{ ItemConstants::CONDITIONS[$item->condition] }}</p>
-                            <p class="text-lg md:text-xl font-semibold">
+                        <div class="flex flex-col mr-2 md:mr-4 my-2 md:my-4 w-full min-w-0">
+                            <p class="text-base md:text-lg font-semibold line-clamp-1">{{ $item->item_name }}</p>
+                            <flux:spacer />
+                            <p class="text-xs py-1 text-gray-800 line-clamp-1">{{ $item->category->category_name ?? '未分類' }}</p>
+                            <p class="text-xs py-1 text-gray-800 border-t border-dotted border-zinc-600 line-clamp-1">{{ ItemConstants::CONDITIONS[$item->condition] }}</p>
+                            <p class="text-sm md:text-base font-semibold py-1 md:py-2 border-t border-dotted border-zinc-600 line-clamp-1">
                                 {{ ItemConstants::DISPOSAL_PLANS[$item->disposal_plan] }}
-                                @if( ($item->disposal_plan == ItemConstants::DISPOSAL_PLAN_DISCARD) && (!empty($item->discard_cost)) ) 
-                                    &#40;<span class="text-[#FF0000]">{{ number_format($item->discard_cost) }} 円</span>&#41;
-                                @elseif( ($item->disposal_plan == ItemConstants::DISPOSAL_PLAN_SALE) && (!empty($item->sale_price)) )
-                                    &#40;<span class="text-[#0000FF]">{{ number_format($item->sale_price) }} 円</span>&#41;
-                                @elseif( ($item->disposal_plan == ItemConstants::DISPOSAL_PLAN_TRANSFER) && (!empty($item->transfer_target)) )
-                                    &#40;{{ Str::limit($item->transfer_target, 20) }}&#41;
-                                @elseif( ($item->disposal_plan == ItemConstants::DISPOSAL_PLAN_STORAGE) && (!empty($item->storage_deadline)) )
-                                    &#40;{{ $item->storage_deadline->format('Y年m月d日') }}まで&#41;
-                                @endif
+                                <span>
+                                    @if( ($item->disposal_plan == ItemConstants::DISPOSAL_PLAN_DISCARD) && (!empty($item->discard_cost)) ) 
+                                        <span>(</span>
+                                        <span class="text-[#FF0000]">{{ number_format($item->discard_cost) }} 円</span>
+                                        <span>)</span>
+                                    @elseif( ($item->disposal_plan == ItemConstants::DISPOSAL_PLAN_SALE) && (!empty($item->sale_price)) )
+                                        <span>(</span>
+                                        <span class="text-[#0000FF]">{{ number_format($item->sale_price) }} 円</span>
+                                        <span>)</span>
+                                    @elseif( ($item->disposal_plan == ItemConstants::DISPOSAL_PLAN_TRANSFER) && (!empty($item->transfer_target)) )
+                                        ({{ $item->transfer_target }})
+                                    @elseif( ($item->disposal_plan == ItemConstants::DISPOSAL_PLAN_STORAGE) && (!empty($item->storage_deadline)) )
+                                        ({{ $item->storage_deadline->format('Y年m月d日') }}まで)
+                                    @endif
+                                </span>
                             </p>
-                            <p class="text-sm md:text-base">{{ ItemConstants::DISPOSAL_STATUSES[$item->disposal_status] }}</p>
+                            <p class="text-xs md:text-sm py-1 border-t border-dotted border-zinc-600"">{{ ItemConstants::DISPOSAL_STATUSES[$item->disposal_status] }}</p>
                         </div>
                     </a>
                 </article>
