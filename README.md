@@ -1,5 +1,5 @@
 # 思い出マネージャー
-
+<img src="./public/app-image-bg-white.png" alt="タイトル画像" width="40%">
 
 <br>
 
@@ -38,7 +38,20 @@
 <br>
 
 ## ER図
+<img src="./public/images/forReadme/entity-relationship.png" alt="ER図" width="60%">
 
+<br>
+
+## 画面サンプル
+
+### 家財検索画面
+<img src="./public/images/forReadme/sample-search.png" alt="家財検索画面" width="60%">
+
+### 家財編集画面
+<img src="./public/images/forReadme/sample-edit.png" alt="家財編集画面" width="60%">
+
+### AIの廃棄の提案ウィンドウ
+<img src="./public/images/forReadme/sample-ai.png" alt="AIウィンドウ" width="60%">
 
 <br>
 
