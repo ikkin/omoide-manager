@@ -38,20 +38,20 @@
 <br>
 
 ## ER図
-<img src="./public/images/forReadme/entity-relationship.png" alt="ER図" width="60%">
+<img src="./public/images/forReadme/entity-relationship.png" alt="ER図" width="75%">
 
 <br>
 
 ## 画面サンプル
 
 ### 家財検索画面
-<img src="./public/images/forReadme/sample-search.png" alt="家財検索画面" width="60%">
+<img src="./public/images/forReadme/sample-search.png" alt="家財検索画面" width="75%">
 
 ### 家財編集画面
-<img src="./public/images/forReadme/sample-edit.png" alt="家財編集画面" width="60%">
+<img src="./public/images/forReadme/sample-edit.png" alt="家財編集画面" width="75%">
 
 ### AIの廃棄の提案ウィンドウ
-<img src="./public/images/forReadme/sample-ai.png" alt="AIウィンドウ" width="60%">
+<img src="./public/images/forReadme/sample-ai.png" alt="AIウィンドウ" width="75%">
 
 <br>
 
