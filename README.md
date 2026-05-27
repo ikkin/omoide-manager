@@ -13,7 +13,7 @@
 <br>
 
 ## URL
-
+https://omoide-manager.fly.dev/
 
 <br>
 
