@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Category;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
@@ -13,18 +14,24 @@ class CategorySeeder extends Seeder
      */
     public function run(): void
     {
-        DB::table('categories')->insert([
-            ['category_name' => '電化製品'],
-            ['category_name' => '家具'],
-            ['category_name' => '農機具'],
-            ['category_name' => '衣類'],
-            ['category_name' => '書類'],
-            ['category_name' => '本'],
-            ['category_name' => 'CD・DVD'],
-            ['category_name' => '貴金属'],
-            ['category_name' => '創作物'],
-            ['category_name' => '雑貨'],
-            ['category_name' => 'その他'],
-        ]);
+        $categories = [
+            '電化製品',
+            '家具',
+            '農機具',
+            '衣類',
+            '書類',
+            '本',
+            'CD・DVD',
+            '貴金属',
+            '創作物',
+            '雑貨',
+            'その他',
+        ];
+
+        foreach ($categories as $name) {
+            Category::firstOrCreate(
+                ['category_name' => $name]
+            );
+        }
     }
 }
